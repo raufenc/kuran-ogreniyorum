@@ -55,6 +55,8 @@
   .ana-dug { width: 64px; height: 64px; border-radius: 50%; border: 0; cursor: pointer; display: grid; place-items: center; flex: none;
     background: radial-gradient(circle at 50% 35%, #f6dd94, #c9993f); color: #2a1a05; box-shadow: 0 6px 22px rgba(217, 180, 90, 0.4); }
   .ana-dug svg { width: 28px; height: 28px; }
+  .ana-dug.yukleniyor { animation: nabiz 1s ease-in-out infinite; }
+  @keyframes nabiz { 50% { box-shadow: 0 0 0 10px rgba(217, 180, 90, 0.18), 0 6px 22px rgba(217, 180, 90, 0.4); } }
   .cubuk { flex: 1; position: relative; height: 34px; display: flex; align-items: center; }
   .cubuk input { width: 100%; direction: rtl; accent-color: var(--altin); height: 6px; cursor: pointer; }
   .sure { font-size: 26px; color: var(--altin2); min-width: 128px; text-align: center; font-variant-numeric: tabular-nums; }
@@ -182,36 +184,51 @@ const ana = () => videolar.find((v) => v.id === sesli).vid;
 const dugGuncelle = () => { oynatDug.innerHTML = oynuyor ? IKON.dur : IKON.oynat; };
 dugGuncelle();
 
+// Hepsini aynı ana getir, dördü de oynatılabilir olunca birlikte başlat (yavaş ağda bekleyeni dürtmeden)
+let bekleniyor = false;
+const hazir = (vid) => new Promise((ok) => {
+  if (!vid.seeking && vid.readyState >= 3) return ok();
+  const bitti = () => { vid.removeEventListener("canplay", bitti); vid.removeEventListener("seeked", kontrol); ok(); };
+  const kontrol = () => { if (vid.readyState >= 3) bitti(); };
+  vid.addEventListener("canplay", bitti); vid.addEventListener("seeked", kontrol);
+  setTimeout(bitti, 15000);
+});
+async function hizala(t, oynat) {
+  bekleniyor = true;
+  videolar.forEach(({ vid }) => { vid.pause(); vid.playbackRate = 1; if (Math.abs(vid.currentTime - t) > 0.04) vid.currentTime = t; });
+  oynatDug.classList.add("yukleniyor");
+  await Promise.all(videolar.map(({ vid }) => hazir(vid)));
+  oynatDug.classList.remove("yukleniyor");
+  bekleniyor = false;
+  if (oynat && oynuyor) await Promise.allSettled(videolar.map(({ vid }) => vid.play()));
+}
 oynatDug.addEventListener("click", async () => {
-  oynuyor = !oynuyor;
-  if (oynuyor) {
-    const t = ana().currentTime;
-    videolar.forEach(({ vid }) => { if (Math.abs(vid.currentTime - t) > 0.05) vid.currentTime = t; });
-    await Promise.allSettled(videolar.map(({ vid }) => vid.play()));
-  } else videolar.forEach(({ vid }) => vid.pause());
-  dugGuncelle();
+  oynuyor = !oynuyor; dugGuncelle();
+  if (oynuyor) await hizala(ana().currentTime, true);
+  else videolar.forEach(({ vid }) => vid.pause());
 });
 cubuk.addEventListener("input", () => {
   surukle = true;
   const d = ana().duration || 134.8, t = (cubuk.value / 1000) * d;
-  videolar.forEach(({ vid }) => { vid.currentTime = t; });
   sure.textContent = zaman(t) + " / " + zaman(d);
 });
-cubuk.addEventListener("change", () => { surukle = false; });
+cubuk.addEventListener("change", () => {
+  surukle = false;
+  const d = ana().duration || 134.8;
+  hizala((cubuk.value / 1000) * d, true);
+});
 
-// eşzamanlılık: sesli olan ana saat, diğerleri ona uyar
+// eşzamanlılık: sesli olan ana saat; biri takılırsa hepsi bekler, küçük kaymalar hızla düzeltilir
 setInterval(() => {
   const m = ana(), d = m.duration || 134.8;
-  if (!surukle) { cubuk.value = Math.round((m.currentTime / d) * 1000); sure.textContent = zaman(m.currentTime) + " / " + zaman(d); }
-  if (!oynuyor) return;
-  videolar.forEach(({ vid }) => {
-    if (vid === m) return;
-    const f = vid.currentTime - m.currentTime;
-    if (Math.abs(f) > 0.25) vid.currentTime = m.currentTime;
-    else vid.playbackRate = f > 0.04 ? 0.97 : f < -0.04 ? 1.03 : 1;
-  });
-  if (m.ended) { oynuyor = false; dugGuncelle(); }
-}, 200);
+  if (!surukle && !bekleniyor) { cubuk.value = Math.round((m.currentTime / d) * 1000); sure.textContent = zaman(m.currentTime) + " / " + zaman(d); }
+  if (!oynuyor || bekleniyor) return;
+  if (m.ended) { oynuyor = false; dugGuncelle(); return; }
+  const takilan = videolar.some(({ vid }) => vid.readyState < 3 && !vid.ended);
+  const f = videolar.map(({ vid }) => vid.currentTime - m.currentTime);
+  if (takilan || f.some((x) => Math.abs(x) > 0.6)) { hizala(m.currentTime, true); return; }
+  videolar.forEach(({ vid }, i) => { if (vid !== m) vid.playbackRate = f[i] > 0.04 ? 0.96 : f[i] < -0.04 ? 1.04 : 1; });
+}, 250);
 
 const buyukEl = document.getElementById("buyuk"), buyukVid = document.getElementById("buyukVideo");
 document.getElementById("kapat").innerHTML = IKON.kapat;
