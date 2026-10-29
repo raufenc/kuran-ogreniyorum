@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="ota" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>قرآنِ كريم اوگرنيورم · اَلدَّرْسُ ١</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Amiri+Quran&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --zemin: #050d24; --zemin2: #0b1d47; --kart: rgba(12, 28, 68, 0.72);
+    --altin: #d9b45a; --altin2: #f3dc95; --fildisi: #f6ecd2; --soluk: rgba(246, 236, 210, 0.62);
+    --cizgi: rgba(217, 180, 90, 0.45);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--zemin); color: var(--fildisi); }
+  body {
+    font-family: "Amiri", serif; min-height: 100vh; overflow-x: hidden;
+    background:
+      radial-gradient(ellipse at 50% -10%, #173a7a 0%, transparent 60%),
+      radial-gradient(ellipse at 50% 120%, #10285e 0%, transparent 55%), var(--zemin);
+  }
+  .girih { position: fixed; inset: 0; pointer-events: none; opacity: 0.07; z-index: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cg fill='none' stroke='%23d9b45a' stroke-width='1.6' transform='translate(70 70)'%3E%3Crect x='-34' y='-34' width='68' height='68'/%3E%3Crect x='-34' y='-34' width='68' height='68' transform='rotate(45)'/%3E%3Ccircle r='16'/%3E%3Cpath d='M-70 0 L-48 0 M48 0 L70 0 M0 -70 L0 -48 M0 48 L0 70'/%3E%3C/g%3E%3C/svg%3E"); }
+  main { position: relative; z-index: 1; max-width: 1380px; margin: 0 auto; padding: 28px 16px 80px; }
+
+  header { text-align: center; padding: 26px 0 30px; }
+  .rozet { width: 92px; height: 92px; margin: 0 auto 8px; }
+  h1 { font-size: clamp(40px, 6vw, 76px); font-weight: 700; color: var(--altin2); line-height: 1.25;
+    text-shadow: 0 0 30px rgba(243, 220, 149, 0.35); }
+  .alt { font-size: clamp(22px, 3vw, 34px); color: var(--fildisi); opacity: 0.9; margin-top: 6px; }
+  .serit { display: flex; align-items: center; justify-content: center; gap: 14px; margin: 18px auto 0; max-width: 520px; }
+  .serit i { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--altin), transparent); }
+  .serit b { width: 9px; height: 9px; transform: rotate(45deg); background: var(--altin); display: block; }
+
+  /* birlikte oynatma */
+  .sahne { border: 1px solid var(--cizgi); border-radius: 22px; background: var(--kart); padding: 14px; backdrop-filter: blur(6px);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45); }
+  .izgara { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .karo { position: relative; border-radius: 14px; overflow: hidden; background: #000; aspect-ratio: 16 / 9; border: 1px solid rgba(217,180,90,0.25);
+    transition: transform .25s ease, box-shadow .25s ease; }
+  .karo.sesli { box-shadow: 0 0 0 2px var(--altin2), 0 0 26px rgba(243, 220, 149, 0.35); }
+  .karo video { width: 100%; height: 100%; display: block; object-fit: cover; background: #000; }
+  .etiket { position: absolute; top: 10px; right: 10px; padding: 0 16px 4px; border-radius: 999px; font-size: 24px; font-weight: 700;
+    background: rgba(5, 13, 36, 0.78); color: var(--altin2); border: 1px solid var(--cizgi); line-height: 1.5; }
+  .karo-dug { position: absolute; bottom: 10px; left: 10px; display: flex; gap: 8px; }
+  .yuvarlak { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--cizgi); background: rgba(5, 13, 36, 0.78); color: var(--altin2);
+    display: grid; place-items: center; cursor: pointer; transition: background .2s, transform .2s; }
+  .yuvarlak:hover { background: rgba(217, 180, 90, 0.25); transform: scale(1.06); }
+  .yuvarlak svg { width: 22px; height: 22px; }
+
+  .kumanda { display: flex; align-items: center; gap: 14px; padding: 14px 6px 4px; }
+  .ana-dug { width: 64px; height: 64px; border-radius: 50%; border: 0; cursor: pointer; display: grid; place-items: center; flex: none;
+    background: radial-gradient(circle at 50% 35%, #f6dd94, #c9993f); color: #2a1a05; box-shadow: 0 6px 22px rgba(217, 180, 90, 0.4); }
+  .ana-dug svg { width: 28px; height: 28px; }
+  .cubuk { flex: 1; position: relative; height: 34px; display: flex; align-items: center; }
+  .cubuk input { width: 100%; direction: rtl; accent-color: var(--altin); height: 6px; cursor: pointer; }
+  .sure { font-size: 26px; color: var(--altin2); min-width: 128px; text-align: center; font-variant-numeric: tabular-nums; }
+
+  /* tek tek */
+  h2 { text-align: center; font-size: clamp(30px, 4vw, 46px); color: var(--altin2); margin: 64px 0 22px; font-weight: 700; }
+  .kartlar { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .kart { border: 1px solid var(--cizgi); border-radius: 20px; background: var(--kart); overflow: hidden; }
+  .kart video { width: 100%; display: block; aspect-ratio: 16 / 9; background: #000; }
+  .kart-bas { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 12px 20px 16px; }
+  .kart-bas h3 { font-size: 34px; color: var(--altin2); font-weight: 700; }
+  .kart-bas p { font-size: 22px; color: var(--soluk); }
+  .yeni { font-size: 18px; padding: 0 12px 3px; border-radius: 999px; background: rgba(217, 180, 90, 0.18); color: var(--altin2); border: 1px solid var(--cizgi); }
+
+  footer { text-align: center; margin-top: 70px; font-family: "Amiri Quran", "Amiri", serif; font-size: 34px; color: var(--altin2); opacity: 0.85; }
+
+  /* büyütme */
+  .buyuk { position: fixed; inset: 0; z-index: 20; background: rgba(2, 6, 18, 0.92); display: none; align-items: center; justify-content: center; padding: 16px; }
+  .buyuk.acik { display: flex; }
+  .buyuk video { max-width: 100%; max-height: 100%; border-radius: 12px; }
+  .buyuk .kapat { position: absolute; top: 16px; left: 16px; }
+
+  @media (max-width: 820px) {
+    .izgara, .kartlar { grid-template-columns: 1fr; }
+    .kumanda { position: sticky; bottom: 0; z-index: 5; margin: 0 -14px -14px; padding: 12px 14px; border-radius: 0 0 22px 22px;
+      background: rgba(5, 13, 36, 0.94); border-top: 1px solid var(--cizgi); }
+    .sure { min-width: 96px; font-size: 22px; }
+    .ana-dug { width: 56px; height: 56px; }
+    .kart-bas { flex-direction: column; align-items: flex-start; gap: 2px; }
+  }
+</style>
+</head>
+<body>
+<div class="girih" aria-hidden="true"></div>
+<main>
+  <header>
+    <svg class="rozet" viewBox="-50 -50 100 100" aria-hidden="true">
+      <g fill="none" stroke="#d9b45a" stroke-width="1.4">
+        <circle r="46" opacity=".6"/><rect x="-26" y="-26" width="52" height="52"/><rect x="-26" y="-26" width="52" height="52" transform="rotate(45)"/>
+      </g>
+      <circle r="9" fill="#d9b45a"/>
+    </svg>
+    <h1>قرآنِ كريم اوگرنيورم</h1>
+    <div class="alt">اَلدَّرْسُ ١ · قُرْآنِ كَرِيم حَرْفلَرى</div>
+    <div class="serit"><i></i><b></b><i></i></div>
+  </header>
+
+  <section class="sahne" aria-label="دردى بردن">
+    <div class="izgara" id="izgara"></div>
+    <div class="kumanda">
+      <button class="ana-dug" id="oynat" title="اوينات" aria-label="اوينات"></button>
+      <div class="cubuk"><input type="range" id="cubuk" min="0" max="1000" value="0" aria-label="زمان"></div>
+      <div class="sure" id="sure">٠:٠٠ / ٢:١٥</div>
+    </div>
+  </section>
+
+  <h2>آيرى آيرى</h2>
+  <section class="kartlar" id="kartlar"></section>
+
+  <footer>رَبِّ زِدْنِى عِلْمًا</footer>
+</main>
+
+<div class="buyuk" id="buyuk">
+  <video id="buyukVideo" controls playsinline></video>
+  <button class="yuvarlak kapat" id="kapat" title="قاپات" aria-label="قاپات"></button>
+</div>
+
+<script>
+const SURUMLER = [
+  { id: "eski", ad: "اسكى", acik: "اولكى ويدئو", yeni: false },
+  { id: "tezhip", ad: "تذهيبلى", acik: "لاجوردى زمين، آلتون تذهيب، حرف شمسه‌سى", yeni: true },
+  { id: "ucboyut", ad: "اوچ بعدلى", acik: "چينى حرفلر، مدرسه ضياسى", yeni: true },
+  { id: "cocuk", ad: "چوجق دنياسى", acik: "حرف ترنى، بايراقلر، بالونلر", yeni: true },
+];
+const IKON = {
+  oynat: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 5v14L6 12z"/></svg>',
+  dur: '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>',
+  ses: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 9v6h-4l-5 4V5l5 4z" fill="currentColor" stroke="none"/><path d="M8 8a5 5 0 0 0 0 8M5 5a9 9 0 0 0 0 14"/></svg>',
+  sessiz: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 9v6h-4l-5 4V5l5 4z" fill="currentColor" stroke="none"/><path d="M3 9l6 6M9 9l-6 6"/></svg>',
+  buyut: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7"/></svg>',
+  kapat: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+};
+const hindi = (s) => String(s).replace(/\d/g, (d) => "٠١٢٣٤٥٦٧٨٩"[d]);
+const zaman = (t) => { t = Math.max(0, t || 0); const m = Math.floor(t / 60), s = Math.floor(t % 60); return hindi(m + ":" + String(s).padStart(2, "0")); };
+
+const izgara = document.getElementById("izgara"), kartlar = document.getElementById("kartlar");
+const videolar = [];
+let sesli = "tezhip";
+
+SURUMLER.forEach((v) => {
+  const k = document.createElement("div");
+  k.className = "karo"; k.dataset.id = v.id;
+  k.innerHTML = `<video src="video/${v.id}.mp4" poster="video/${v.id}.jpg" playsinline preload="auto" muted></video>
+    <div class="etiket">${v.ad}</div>
+    <div class="karo-dug">
+      <button class="yuvarlak ses-dug" title="سس" aria-label="سس"></button>
+      <button class="yuvarlak buyut-dug" title="بيوت" aria-label="بيوت">${IKON.buyut}</button>
+    </div>`;
+  izgara.appendChild(k);
+  const vid = k.querySelector("video");
+  videolar.push({ id: v.id, vid, karo: k });
+  k.querySelector(".ses-dug").addEventListener("click", () => { sesli = v.id; sesGuncelle(); });
+  k.querySelector(".buyut-dug").addEventListener("click", () => buyut(v.id));
+
+  const c = document.createElement("article");
+  c.className = "kart";
+  c.innerHTML = `<video src="video/${v.id}.mp4" poster="video/${v.id}.jpg" controls playsinline preload="none"></video>
+    <div class="kart-bas"><h3>${v.ad} ${v.yeni ? '<span class="yeni">يڭى</span>' : ""}</h3><p>${v.acik}</p></div>`;
+  kartlar.appendChild(c);
+});
+
+function sesGuncelle() {
+  videolar.forEach(({ id, vid, karo }) => {
+    const on = id === sesli;
+    vid.muted = !on;
+    karo.classList.toggle("sesli", on);
+    karo.querySelector(".ses-dug").innerHTML = on ? IKON.ses : IKON.sessiz;
+  });
+}
+sesGuncelle();
+
+const oynatDug = document.getElementById("oynat"), cubuk = document.getElementById("cubuk"), sure = document.getElementById("sure");
+let oynuyor = false, surukle = false;
+const ana = () => videolar.find((v) => v.id === sesli).vid;
+const dugGuncelle = () => { oynatDug.innerHTML = oynuyor ? IKON.dur : IKON.oynat; };
+dugGuncelle();
+
+oynatDug.addEventListener("click", async () => {
+  oynuyor = !oynuyor;
+  if (oynuyor) {
+    const t = ana().currentTime;
+    videolar.forEach(({ vid }) => { if (Math.abs(vid.currentTime - t) > 0.05) vid.currentTime = t; });
+    await Promise.allSettled(videolar.map(({ vid }) => vid.play()));
+  } else videolar.forEach(({ vid }) => vid.pause());
+  dugGuncelle();
+});
+cubuk.addEventListener("input", () => {
+  surukle = true;
+  const d = ana().duration || 134.8, t = (cubuk.value / 1000) * d;
+  videolar.forEach(({ vid }) => { vid.currentTime = t; });
+  sure.textContent = zaman(t) + " / " + zaman(d);
+});
+cubuk.addEventListener("change", () => { surukle = false; });
+
+// eşzamanlılık: sesli olan ana saat, diğerleri ona uyar
+setInterval(() => {
+  const m = ana(), d = m.duration || 134.8;
+  if (!surukle) { cubuk.value = Math.round((m.currentTime / d) * 1000); sure.textContent = zaman(m.currentTime) + " / " + zaman(d); }
+  if (!oynuyor) return;
+  videolar.forEach(({ vid }) => {
+    if (vid === m) return;
+    const f = vid.currentTime - m.currentTime;
+    if (Math.abs(f) > 0.25) vid.currentTime = m.currentTime;
+    else vid.playbackRate = f > 0.04 ? 0.97 : f < -0.04 ? 1.03 : 1;
+  });
+  if (m.ended) { oynuyor = false; dugGuncelle(); }
+}, 200);
+
+const buyukEl = document.getElementById("buyuk"), buyukVid = document.getElementById("buyukVideo");
+document.getElementById("kapat").innerHTML = IKON.kapat;
+function buyut(id) {
+  videolar.forEach(({ vid }) => vid.pause()); oynuyor = false; dugGuncelle();
+  buyukVid.src = `video/${id}.mp4`; buyukVid.currentTime = 0; buyukEl.classList.add("acik"); buyukVid.play().catch(() => {});
+}
+function kapat() { buyukVid.pause(); buyukEl.classList.remove("acik"); }
+document.getElementById("kapat").addEventListener("click", kapat);
+buyukEl.addEventListener("click", (e) => { if (e.target === buyukEl) kapat(); });
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") kapat(); });
+// tek tek kartlardan biri oynayınca diğerleri dursun
+kartlar.addEventListener("play", (e) => {
+  kartlar.querySelectorAll("video").forEach((v) => { if (v !== e.target) v.pause(); });
+  videolar.forEach(({ vid }) => vid.pause()); oynuyor = false; dugGuncelle();
+}, true);
+</script>
+</body>
+</html>
