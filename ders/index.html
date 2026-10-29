@@ -59,6 +59,12 @@
     border-radius: 50%; background: var(--altin2); box-shadow: 0 0 10px rgba(243, 220, 149, 0.7); }
   .zaman { flex: none; font-size: 22px; color: var(--soluk); min-width: 92px; text-align: center; }
 
+  .dersler { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+  .ders { border: 1px solid var(--cizgi); border-radius: 14px; background: var(--kart); color: var(--fildisi); font: inherit;
+    padding: 4px 16px 8px; cursor: pointer; display: flex; align-items: baseline; gap: 10px; }
+  .ders b { font-size: 30px; color: var(--altin2); }
+  .ders span { font-size: 20px; opacity: 0.8; }
+  .ders.secili { border: 2px solid var(--altin2); box-shadow: 0 0 20px rgba(243, 220, 149, 0.3); }
   .usluplar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 18px; }
   .uslup { border: 1px solid var(--cizgi); border-radius: 16px; background: var(--kart); padding: 8px; cursor: pointer;
     color: var(--fildisi); font: inherit; display: flex; flex-direction: column; gap: 6px; transition: transform .2s, border-color .2s; }
@@ -87,7 +93,7 @@
 <main>
   <header>
     <h1>قرآنِ كريم اوگرنيورم</h1>
-    <div class="alt">اَلدَّرْسُ ١ · قُرْآنِ كَرِيم حَرْفلَرى</div>
+    <div class="alt" id="altBaslik">اَلدَّرْسُ ١ · قُرْآنِ كَرِيم حَرْفلَرى</div>
   </header>
   <div id="kok"></div>
   <footer>رَبِّ زِدْنِى عِلْمًا</footer>
