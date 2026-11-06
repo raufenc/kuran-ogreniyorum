@@ -431,3 +431,4 @@
 .kd-panel.kd-eslestir.kd-ar { padding: 14px 26px 16px; border-radius: 16px; background: rgba(251, 242, 221, .96); color: var(--kd-murekkep); }
 .kd-panel.kd-eslestir.kd-ar h3 { color: var(--kd-kobalt); text-shadow: none; }
 .kd-panel.kd-eslestir.kd-ar .kd-canli span { color: var(--kd-kobalt); text-shadow: none; }
+.kd-panel.kd-ar .kd-esles .secenek, .kd-panel.kd-ar .kd-esles.uc .kd-esles-b .secenek { justify-content: center; min-height: 84px; font: 400 58px/1.2 'Amiri', serif; color: var(--kd-kobalt); }
