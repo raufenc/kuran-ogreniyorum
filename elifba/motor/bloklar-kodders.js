@@ -10,7 +10,8 @@
                  t ders saati, a ortam saati: durakta t durur, a yürür, sahne canlı kalır.
    Durak türleri: secim · kaydir · yerlestir · olmasa · eslestir · dizme · dokun · okuma. Çocuğa yazı yazdırılmaz.
    okuma (Elifbâ ve Kur'ân): kip 'birlikte' kâri okur çocuk tekrar eder, 'kulak' kâri okur çocuk bulur, 'tek' çocuk
-   okur hoca Tamam/Bir daha der. parcalar [{m, ad, dinle}]; dinle anlatımdan ayrı kısa kâri kaydıdır (api.sesParca).
+   okur hoca Tamam/Bir daha der, 'av' tahtadaki bütün örnekleri bulur, 'ayir' iki kümeye ayırır (kalın, ince),
+   'nokta' gövdeye noktaları koyup harfi kurar. parcalar [{m, ad, dinle}]; dinle kısa kâri kaydıdır (api.sesParca).
    Ders verisinde pullar varsa ilgili durak bitince kesilmemiş dörtgen baskı tepsiye uçar (bloklar-pul.js).
    Kanıt: bilgi durakları ilk denemede 10 puandır, yanlışta ceza yoktur; dizme ve dokun bitirene 10 puandır,
    seçim duraklarına puan verilmez, canlı derste hoca değerlendirir. İpucu kullanımı ayrı kaydedilir. */
@@ -336,6 +337,9 @@
         if (ad === 'dizbasla' || ad === 'tas') return 'Taşları diziyor';
         if (ad === 'dene') return (d.varliklar[v.i] || {}).ad + ' denedi';
         if (ad === 'kulak') return (v.i === v.h ? '✓ ' : '✗ ') + ((d.parcalar[v.i] || {}).ad || '');
+        if (ad === 'avla') return 'Harf arıyor';
+        if (ad === 'kumele') return d.kumeler[v.i] + ' dedi';
+        if (ad === 'noktala') return 'Nokta koyuyor';
         if (ad === 'hicbiri') return '✓ ' + d.dogru;
         if (ad === 'kaydir') return d.durum[v.v < d.aralik[0] ? 0 : v.v > d.aralik[1] ? 2 : 1];
         return '';
@@ -912,18 +916,19 @@
       Kur.okuma = function (d) {
         var p = panel(d), k = d.kip || 'birlikte', sira = 0, dinlenen = {}, bitti_ = false, dug = null;
         var liste = k === 'kulak' ? (d.sira || d.parcalar.map(function (x, i) { return i; })) : (d.sira || d.parcalar.map(function (x, i) { return i; }));
-        var goster = k === 'kulak' ? d.parcalar.map(function (x, i) { return i; }) : liste;
+        var goster = k === 'kulak' ? d.parcalar.map(function (x, i) { return i; }) : k === 'av' ? d.tahta : k === 'nokta' ? [] : liste;
         var satir = el('div', { class: 'kd-okuma-satir kip-' + k + (d.boyut ? ' boy-' + d.boyut : ''), dir: 'rtl', lang: 'ar', style: 'top:' + (d.y || 400) + 'px' });
         var harfler = goster.map(function (pi, n) {
           return satir.appendChild(el('button', { class: 'kd-harf', type: 'button', 'aria-label': d.parcalar[pi].ad, disabled: k !== 'kulak' || null, text: d.parcalar[pi].m,
-            onclick: function () { if (k === 'kulak' && !bitti_) hamle('kulak', { i: pi, h: liste[sira] }); } }));
+            onclick: function () { if (bitti_) return; if (k === 'kulak') hamle('kulak', { i: pi, h: liste[sira] }); else if (k === 'av') hamle('avla', { n: n, r: sira }); } }));
         });
+        if (k === 'av') { satir.classList.add('kip-kulak'); harfler.forEach(function (h) { h.disabled = false; }); }
         sahneKat.appendChild(satir);
         var durum = el('p', { class: 'kd-durum' }), dugmeler = el('div', { class: 'kd-okuma-dug' });
         p.appendChild(durum); p.appendChild(dugmeler);
         function isaretle() {
           harfler.forEach(function (h, n) {
-            if (k === 'kulak') return;
+            if (k === 'kulak' || k === 'av') return;
             h.classList.toggle('simdi', n === sira && !bitti_); h.classList.toggle('tamam', n < sira || bitti_);
           });
         }
@@ -969,6 +974,83 @@
           if (yeni) { dugmeler.innerHTML = ''; if (!izleyen()) dugmeler.appendChild(el('button', { class: 'dug ikincil', type: 'button', text: 'Bir daha dinle', onclick: function () { kulak(false); } })); }
           parcaCal(o.dinle);
         }
+        /* av: kâri harfi okur, çocuk tahtadaki bütün örneklerini bulur */
+        function avKalan() { return harfler.filter(function (h, n) { return d.tahta[n] === liste[sira] && !h.classList.contains('bulundu'); }).length; }
+        function avTur(yeni) {
+          var o = d.parcalar[liste[sira]];
+          durum.textContent = o.ad + ': ' + avKalan() + ' tane bul.';
+          if (yeni) { dugmeler.innerHTML = ''; if (!izleyen()) dugmeler.appendChild(el('button', { class: 'dug ikincil', type: 'button', text: 'Bir daha dinle', onclick: function () { parcaCal(d.parcalar[liste[sira]].dinle); } })); parcaCal(o.dinle); }
+        }
+        ctx.eylemTanimla('avla', function (v, kk) {
+          if (bitti_ || v.r !== sira) return;
+          var h = harfler[v.n], dogru = d.tahta[v.n] === liste[sira], o = d.parcalar[liste[sira]];
+          if (!h || h.classList.contains('bulundu')) return;
+          acik.deneme++;
+          if (!kk.tekrar) (dogru ? DO.efekt.dogru : DO.efekt.yanlis)();
+          if (!dogru) { h.classList.add('yanlis'); setTimeout(function () { h.classList.remove('yanlis'); }, 500); durum.textContent = (d.parcalar[d.tahta[v.n]] || {}).ad + ' değil. ' + o.ad + ' harfini bul.'; return; }
+          h.classList.add('bulundu');
+          if (avKalan()) { durum.textContent = o.ad + ': ' + avKalan() + ' tane kaldı.'; return; }
+          if (kk.yerel) ctx.cevap({ oge: 'durak-' + d.id + '-' + sira, ad: o.ad, yanit: 'Hepsini buldu', dogru: acik.deneme <= harfler.filter(function (x, n) { return d.tahta[n] === liste[sira]; }).length, puan: 0, max: 0, deneme: acik.deneme, etkilesim: 'choice' });
+          sira++; acik.deneme = 0;
+          if (sira >= liste.length) { bitir_(); return; }
+          harfler.forEach(function (x) { x.classList.remove('bulundu'); });
+          okumaSayac = setTimeout(function () { avTur(true); }, 700);
+        });
+        /* ayir: kâri okur, çocuk iki kümeden birini seçer */
+        function ayirTur() {
+          var o = d.parcalar[liste[sira]];
+          isaretle(); durum.textContent = d.dinleMetin || 'Dinle ve seç.'; dugmeler.innerHTML = '';
+          if (!izleyen()) {
+            d.kumeler.forEach(function (m, i) { dugmeler.appendChild(el('button', { class: 'dug ana', type: 'button', text: m, onclick: function () { hamle('kumele', { i: i, s: sira }); } })); });
+            dugmeler.appendChild(el('button', { class: 'dug ikincil', type: 'button', text: 'Bir daha dinle', onclick: function () { parcaCal(d.parcalar[liste[sira]].dinle); } }));
+          }
+          parcaCal(o.dinle);
+        }
+        ctx.eylemTanimla('kumele', function (v, kk) {
+          if (bitti_ || v.s !== sira) return;
+          var o = d.parcalar[liste[sira]], dogru = o.kume === v.i;
+          acik.deneme++;
+          if (kk.yerel) ctx.cevap({ oge: 'durak-' + d.id + '-' + sira, ad: o.ad, yanit: d.kumeler[v.i], dogru: dogru, dogruYanit: d.kumeler[o.kume], puan: 0, max: 0, deneme: acik.deneme, etkilesim: 'choice' });
+          if (!kk.tekrar) (dogru ? DO.efekt.dogru : DO.efekt.yanlis)();
+          if (!dogru) { durum.textContent = d.yanlis || 'Bir daha dinle.'; if (!kk.tekrar) parcaCal(o.dinle); return; }
+          sira++; acik.deneme = 0;
+          if (sira >= liste.length) { bitir_(); return; }
+          okumaSayac = setTimeout(ayirTur, 500);
+        });
+        /* nokta: gövde verilir, çocuk noktaları doğru yere koyar, harf kurulunca kâri okur */
+        var nkKok = null, nkSay = 0;
+        function noktaTur() {
+          var o = d.parcalar[liste[sira]];
+          satir.innerHTML = ''; nkSay = 0;
+          nkKok = el('div', { class: 'kd-nk', lang: 'ar', dir: 'rtl' }, [el('span', { class: 'kd-nk-govde', text: o.govde })]);
+          (d.yerler || ['ust', 'alt']).forEach(function (z) {
+            nkKok.appendChild(el('button', { class: 'kd-nk-yer ' + z, type: 'button', 'aria-label': z === 'ust' ? 'Üstüne' : z === 'alt' ? 'Altına' : 'İçine', onclick: function () { hamle('noktala', { z: z, s: sira }); } }));
+          });
+          satir.appendChild(nkKok); satir.classList.add('kip-kulak');
+          dugmeler.innerHTML = '';
+          durum.textContent = o.ad + ' yap: noktayı koy.';
+          if (o.nokta[1] === 0) { durum.textContent = o.ad + ': bu harfte nokta yok.'; dugmeler.appendChild(el('button', { class: 'dug ana', type: 'button', text: 'Noktası yok', onclick: function () { hamle('noktala', { z: 'yok', s: sira }); } })); }
+        }
+        ctx.eylemTanimla('noktala', function (v, kk) {
+          if (bitti_ || v.s !== sira || !nkKok) return;
+          var o = d.parcalar[liste[sira]], dogru = v.z === (o.nokta[1] ? o.nokta[0] : 'yok');
+          acik.deneme++;
+          if (!dogru) {
+            if (!kk.tekrar) DO.efekt.yanlis();
+            durum.textContent = d.yanlis || 'Oraya değil. Bir daha bak.'; nkKok.classList.add('titre'); setTimeout(function () { if (nkKok) nkKok.classList.remove('titre'); }, 400); return;
+          }
+          if (v.z !== 'yok') { nkSay++; nkKok.querySelector('.kd-nk-yer.' + v.z).appendChild(el('i')); }
+          if (nkSay < o.nokta[1]) { if (!kk.tekrar && DO.efekt.tik) DO.efekt.tik(); durum.textContent = 'Bir nokta daha.'; return; }
+          if (kk.yerel) ctx.cevap({ oge: 'durak-' + d.id + '-' + sira, ad: o.ad, yanit: 'Harfi kurdu', dogru: acik.deneme === Math.max(1, o.nokta[1]), puan: 0, max: 0, deneme: acik.deneme, etkilesim: 'performance' });
+          if (!kk.tekrar) DO.efekt.dogru();
+          nkKok.innerHTML = ''; nkKok.appendChild(el('span', { class: 'kd-nk-govde tamam', text: o.m }));
+          durum.textContent = 'İşte ' + o.ad + '!';
+          sira++; acik.deneme = 0;
+          parcaCal(o.dinle, function () {
+            if (!acik || acik.d !== d) return;
+            okumaSayac = setTimeout(function () { if (sira >= liste.length) bitir_(); else noktaTur(); }, 500);
+          });
+        });
         ctx.eylemTanimla('okubas', function () { bitti_ = false; sira = 0; dugmeler.innerHTML = ''; harfler.forEach(function (h) { h.classList.remove('tamam', 'simdi', 'sen'); }); birlikte(); });
         ctx.eylemTanimla('okunan', function (v, kk) {
           if (v.d !== d.i || v.i !== sira || bitti_) return;
@@ -993,6 +1075,9 @@
         });
         if (k === 'birlikte') birlikte();
         else if (k === 'kulak') kulak(true);
+        else if (k === 'av') avTur(true);
+        else if (k === 'ayir') ayirTur();
+        else if (k === 'nokta') noktaTur();
         else tek();
       };
 
