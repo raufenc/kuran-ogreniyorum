@@ -61,6 +61,7 @@
       plaka('on', { d: 1.05, ruzgar: 0.35, y: 455 });
       if (yan > 0.002) T.ciz('levha', { x: HX, y: 380, g: 780, d: 0, o: Math.min(1, yan * 1.5), parilti: 0.5 });
       var orta = Math.max(tw(t, AN.hat1 - 0.5, 0.7) * (1 - tw(t, AN.bu - 0.2, 0.7)), tw(t, AN.ayr - 0.25, 0.7) * (1 - tw(t, AN.ev - 0.2, 0.9)));
+      if (acik === 'esles') orta = 0;   // eşleştirme kendi kâğıdında açılır
       if (orta > 0.002) T.ciz('levha', { x: 800, y: kr(980, 350, orta), g: 1180, d: 0, o: Math.min(1, orta * 1.5), parilti: 0.5 });
       T.izBitir();
       // levhadaki harf ve nesnenin noktaları

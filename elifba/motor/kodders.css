@@ -421,8 +421,13 @@
 .kd-nk-yer:hover { background: rgba(243, 213, 132, .55); }
 .kd-nk-yer.ust { top: 8px; }
 .kd-nk-yer.alt { bottom: 4px; }
-.kd-nk-yer.ic { top: 44%; width: 120px; height: 84px; margin-left: -50px; }
+.kd-nk-yer.ic { top: 57%; width: 104px; height: 78px; margin-left: -30px; }
 .kd-nk-yer i { width: 26px; height: 26px; background: var(--kd-kobalt); transform: rotate(45deg); }
 .kd-okuma-satir.boy-kucuk { width: 1020px; gap: 0 4px; justify-content: flex-start; }
 .kd-okuma-satir.boy-kucuk .kd-harf { min-width: 92px; font-size: 66px; line-height: 1.5; padding: 0 6px 2px; border-width: 2px; }
 .kd-panel.kd-ar .secenek, .kd-panel.kd-ar .kd-canli-cevap { font: 400 58px/1.3 'Amiri', serif; color: var(--kd-kobalt); direction: rtl; }
+.kd-okuma-satir.boy-orta .kd-harf { width: 128px; min-width: 0; padding: 0 0 6px; }
+.kd-okuma-satir.boy-kucuk .kd-harf { width: 92px; min-width: 0; padding: 0 0 2px; font-size: 62px; }
+.kd-panel.kd-eslestir.kd-ar { padding: 14px 26px 16px; border-radius: 16px; background: rgba(251, 242, 221, .96); color: var(--kd-murekkep); }
+.kd-panel.kd-eslestir.kd-ar h3 { color: var(--kd-kobalt); text-shadow: none; }
+.kd-panel.kd-eslestir.kd-ar .kd-canli span { color: var(--kd-kobalt); text-shadow: none; }
