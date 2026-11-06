@@ -89,7 +89,7 @@
       /* Durakta etkinlik altta tam genişlikte bir tepside açılır; sahne küçülmez, yanlarda boşluk kalmaz.
          Tür başına [tepsi yüksekliği, sahnenin yukarı kayması]: durağın önemli kısmı tepsinin üstünde kalır.
          Durak verisinde tepsi ve ust ile değiştirilebilir. Defter ve eşleştirme sahnenin kendisinde açılır. */
-      var YER = { kaydir: [150, 30], yerlestir: [240, 40], olmasa: [320, 130], dizme: [230, 150], dokun: [262, 0], secim: [320, 0], serit: [380, 0], okuma: [196, 0] };
+      var YER = { kaydir: [150, 30], yerlestir: [240, 40], olmasa: [320, 130], dizme: [230, 150], dokun: [262, 0], secim: [320, 0], serit: [380, 0], okuma: [206, 0] };
       function yerAyarla(d) {
         if (d.duzen === 'defter' || d.tur === 'eslestir') { kok.dataset.yer = 'tam'; return; }
         var y = YER[d.duzen === 'serit' ? 'serit' : d.tur] || [300, 0], tepsi = d.tepsi || y[0];

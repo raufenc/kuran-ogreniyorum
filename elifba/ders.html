@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Besmele ve İlk Dört Harf · Elifbâ Dersleri</title>
+<meta name="description" content="Birlikte İyilik Akademi Elifbâ dersleri için örnek ders.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500;700;800&family=Baloo+2:wght@600;800&family=Caveat:wght@600;700&family=Nunito:wght@600;700;800;900&family=Amiri&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="motor/stil.css">
+<link rel="stylesheet" href="motor/kodders.css">
+<link rel="stylesheet" href="motor/pul.css">
+<link rel="stylesheet" href="motor/giris.css">
+<link rel="stylesheet" href="app/maskot.css">
+<style>.giris-geri { display: none !important; }
+.elifba-menu { position: fixed; z-index: 5; left: 14px; top: 10px; padding: 6px 12px; border-radius: 999px; background: rgba(255,255,255,.88); color: #17307f; font: 700 14px/1.2 Nunito, sans-serif; text-decoration: none; }</style>
+</head>
+<body>
+<script src="motor/cekirdek.js"></script>
+<script src="motor/kayit.js"></script>
+<script src="motor/canli.js"></script>
+<script src="motor/oynatici.js"></script>
+<script src="motor/bloklar-temel.js"></script>
+<script src="motor/bloklar-oyun.js"></script>
+<script src="motor/bloklar-eglence.js"></script>
+<script src="motor/kd-tuval.js"></script>
+<script src="motor/pul-sanat.js"></script>
+<script src="motor/bloklar-kodders.js"></script>
+<script src="motor/bloklar-pul.js"></script>
+<script src="app/maskot.js"></script>
+<script src="app/sanat.js"></script>
+<script>
+  var dersId = new URLSearchParams(location.search).get('d') || 'kuran-01';
+  if (!/^kuran-0[1-8]$/.test(dersId)) dersId = 'kuran-01';
+  document.write('<script src="dersler/' + dersId + '/ders.js"><\/script>');
+</script>
+<script>
+  if (!DO.depo.oku('do:ad', '')) DO.depo.yaz('do:ad', 'Talebe');
+  DO._ders._kok = 'dersler/' + dersId + '/';
+  document.title = DO._ders.ad + ' · Elifbâ Dersleri';
+  DO.Oynatici.baslat();
+</script>
+<a class="elifba-menu" href="./">Dersler</a>
+</body>
+</html>

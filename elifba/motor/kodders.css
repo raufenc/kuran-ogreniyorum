@@ -404,6 +404,8 @@
 .kd-okuma-satir.boy-ayet .kd-harf { font-size: 92px; line-height: 1.75; padding: 0 30px 10px; }
 .kd-panel.kd-ar .kd-kart { align-items: center; }
 .kd-panel.kd-ar .kd-kartlar, .kd-panel.kd-ar .cipler { direction: rtl; }
+.kd-panel.kd-ar .kd-kartlar { display: flex; gap: 10px; }
+.kd-panel.kd-ar .kd-kart { flex: 1 1 0; min-width: 0; }
 .kd-panel.kd-ar .kd-kartlar:not(.resimli) .kd-kart { align-items: center; padding: 0 10px 8px; text-align: center; font: 400 74px/1.45 'Amiri', serif; color: var(--kd-kobalt); }
 .kd-panel.kd-ar .cip { min-width: 96px; font: 400 54px/1.3 'Amiri', serif; color: var(--kd-kobalt); }
 .kd-sahne-kat.kd-ar .kd-yuva { min-width: 150px; min-height: 150px; display: flex; align-items: center; justify-content: center; font: 400 96px/1.2 'Amiri', serif; color: var(--kd-kobalt); }

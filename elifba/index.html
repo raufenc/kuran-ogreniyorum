@@ -2,40 +2,44 @@
 <html lang="tr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Besmele ve İlk Dört Harf · Elifbâ Dersleri</title>
-<meta name="description" content="Birlikte İyilik Akademi Elifbâ dersleri için örnek ders.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elifbâ Dersleri</title>
+<meta name="description" content="Birlikte İyilik Akademi Elifbâ dersleri için örnek dersler: bütün harfler sekiz derste.">
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500;700;800&family=Baloo+2:wght@600;800&family=Caveat:wght@600;700&family=Nunito:wght@600;700;800;900&family=Amiri&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="motor/stil.css">
-<link rel="stylesheet" href="motor/kodders.css">
-<link rel="stylesheet" href="motor/pul.css">
-<link rel="stylesheet" href="motor/giris.css">
-<link rel="stylesheet" href="app/maskot.css">
-<style>.giris-geri { display: none !important; }</style>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@700;800&family=Nunito:wght@600;800&family=Amiri&display=swap" rel="stylesheet">
+<style>
+:root { --gece: #0f1a44; --kobalt: #17307f; --altin: #d9a93f; --krem: #fbf2dd; --murekkep: #2b2419; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--gece); color: var(--krem); font-family: Nunito, sans-serif; }
+main { max-width: 1120px; margin: 0 auto; padding: 44px 20px 60px; }
+h1 { margin: 0; font: 800 clamp(38px, 6vw, 62px)/1.05 Alegreya, Georgia, serif; color: #f3d584; }
+p.alt { margin: 12px 0 30px; max-width: 620px; font-size: 18px; line-height: 1.5; }
+.dersler { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); gap: 18px; list-style: none; margin: 0; padding: 0; }
+.dersler a { display: flex; flex-direction: column; height: 100%; overflow: hidden; border: 2px solid var(--altin); border-radius: 14px; background: var(--krem); color: var(--murekkep); text-decoration: none; transition: transform .15s; }
+.dersler a:hover, .dersler a:focus-visible { transform: translateY(-3px); }
+.dersler img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.yazi { padding: 12px 14px 14px; }
+.no { font-size: 13px; font-weight: 800; color: #8a6a1f; }
+h2 { margin: 2px 0 6px; font: 700 23px/1.15 Alegreya, Georgia, serif; color: var(--kobalt); }
+.harf { font: 400 32px/1.4 Amiri, serif; color: var(--kobalt); direction: rtl; text-align: right; }
+</style>
 </head>
 <body>
-<script src="motor/cekirdek.js"></script>
-<script src="motor/kayit.js"></script>
-<script src="motor/canli.js"></script>
-<script src="motor/oynatici.js"></script>
-<script src="motor/bloklar-temel.js"></script>
-<script src="motor/bloklar-oyun.js"></script>
-<script src="motor/bloklar-eglence.js"></script>
-<script src="motor/kd-tuval.js"></script>
-<script src="motor/pul-sanat.js"></script>
-<script src="motor/bloklar-kodders.js"></script>
-<script src="motor/bloklar-pul.js"></script>
-<script src="app/maskot.js"></script>
-<script src="app/sanat.js"></script>
-<script src="dersler/kuran-01/ders.js"></script>
-<script>
-  if (!DO.depo.oku('do:ad', '')) DO.depo.yaz('do:ad', 'Talebe');
-  DO._ders._kok = 'dersler/kuran-01/';
-  document.title = DO._ders.ad + ' · Elifbâ Dersleri';
-  DO.Oynatici.baslat();
-</script>
+<main>
+  <h1>Elifbâ Dersleri</h1>
+  <p class="alt">Bütün harfler sekiz derste. Ders ekranda akar, Hâfız Efendi okur, sen tekrar edersin, sonra kendin okursun.</p>
+  <ol class="dersler">
+    <li><a href="ders.html?d=kuran-01"><img src="dersler/kuran-01/kapak.webp" alt=""><div class="yazi"><div class="no">1. Ders</div><h2>Besmele ve İlk Dört Harf</h2><div class="harf" lang="ar">ا ب ت ث</div></div></a></li>
+    <li><a href="ders.html?d=kuran-02"><img src="dersler/kuran-02/kapak.webp" alt=""><div class="yazi"><div class="no">2. Ders</div><h2>Cim, Ha, Hı</h2><div class="harf" lang="ar">ج ح خ</div></div></a></li>
+    <li><a href="ders.html?d=kuran-03"><img src="dersler/kuran-03/kapak.webp" alt=""><div class="yazi"><div class="no">3. Ders</div><h2>Dal, Zel, Ra, Ze</h2><div class="harf" lang="ar">د ذ ر ز</div></div></a></li>
+    <li><a href="ders.html?d=kuran-04"><img src="dersler/kuran-04/kapak.webp" alt=""><div class="yazi"><div class="no">4. Ders</div><h2>Sin, Şın, Sad, Dad</h2><div class="harf" lang="ar">س ش ص ض</div></div></a></li>
+    <li><a href="ders.html?d=kuran-05"><img src="dersler/kuran-05/kapak.webp" alt=""><div class="yazi"><div class="no">5. Ders</div><h2>Tı, Zı, Ayn, Gayn</h2><div class="harf" lang="ar">ط ظ ع غ</div></div></a></li>
+    <li><a href="ders.html?d=kuran-06"><img src="dersler/kuran-06/kapak.webp" alt=""><div class="yazi"><div class="no">6. Ders</div><h2>Fe, Kaf, Kef</h2><div class="harf" lang="ar">ف ق ك</div></div></a></li>
+    <li><a href="ders.html?d=kuran-07"><img src="dersler/kuran-07/kapak.webp" alt=""><div class="yazi"><div class="no">7. Ders</div><h2>Lam, Mim, Nun</h2><div class="harf" lang="ar">ل م ن</div></div></a></li>
+    <li><a href="ders.html?d=kuran-08"><img src="dersler/kuran-08/kapak.webp" alt=""><div class="yazi"><div class="no">8. Ders</div><h2>Vav, He, Lamelif, Ye</h2><div class="harf" lang="ar">و ه لا ى</div></div></a></li>
+  </ol>
+</main>
 </body>
 </html>
