@@ -55,7 +55,7 @@
         var gir = ilk === 0 ? 1 : tw(t, basi(ilk) - 0.3, 0.7);
         // nesne resmin içinde kaybolmasın: arkasında krem bir ışık
         var ho = nesneO * gir;
-        T.iz(OX, OY, 300, 300, 0, 0.98, 0.9, 0.72, 0.55 * ho); T.izBitir();
+        T.iz(OX, OY, 310, 310, 0, 0.99, 0.94, 0.8, 0.82 * ho); T.izBitir();
         T.ciz(ad, { x: OX, y: OY + Math.sin(a * 1.1) * 6, g: b.g, h: b.h, d: 0.3, r: Math.sin(a * 0.8) * 1.2, o: nesneO * gir, parilti: 0.5 });
       }
       plaka('on', { d: 1.05, ruzgar: 0.35, y: 455 });
