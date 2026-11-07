@@ -220,6 +220,8 @@
 /* Öğrenci işini bitirince Hocamızı bekler */
 .kd-panel.kd-bekle > :not(.kd-bekle-not):not(.kd-etiket):not(h3):not(.kd-geri-bildirim) { pointer-events: none; opacity: .5; }
 .kd-bekle-not { margin: 0; padding: 10px 16px; border-radius: 10px; background: #e4eed6; color: #33561f; font: 800 21px/1.3 var(--yazi); text-align: center; }
+/* Beklerken soluk düğme yerini nota bırakır; yoksa not alt tepsiden taşıp kesiliyordu */
+.kd-panel.kd-bekle .kd-devam { display: none; }
 
 /* Sınıf şeridi: kim ne yapıyor */
 .kd-sinif { position: absolute; right: 18px; top: 108px; z-index: 40; width: 410px; max-height: 440px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; padding: 12px; border-radius: 14px; background: rgba(251, 242, 221, .97); border: 2px solid var(--kd-altin); box-shadow: 0 14px 34px rgba(8, 14, 40, .35); font-family: var(--yazi); }
